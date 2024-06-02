@@ -1,6 +1,5 @@
 "use client";
 
-import { DarkThemeToggle } from "flowbite-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -15,14 +14,13 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
-      <h1 className="text-2xl dark:text-white">Flowbite React + Next.js</h1>
-      <DarkThemeToggle />
+    <>
+      <h1 className="text-2xl dark:text-white">Home</h1>
       <div>
         {post.map((val) => {
           return <div key={val.id}>{val.id}</div>;
         })}
       </div>
-    </main>
+    </>
   );
 }
