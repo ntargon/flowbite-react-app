@@ -50,7 +50,7 @@ def main():
     app = FastAPI()
 
     app.mount('/api', backend())
-    app.mount('/', frontend(build_dir='./out'))
+    app.mount('/', frontend(build_dir='./frontend/out'))
     uvicorn.run(app, port=8000)
 
 if __name__ == '__main__':
