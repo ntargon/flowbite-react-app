@@ -18,22 +18,22 @@ export default function Home() {
   const [fileContentBinary, setFileContentBinary] = useState("");
 
   // ファイルが選択されたときのハンドラー
-  const handleFileChange = async (event) => {
+  const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
-      const text = await readFileContentText(file);
+      const text = (await readFileContentText(file)) as string;
       setFileContentText(text);
-      const binary = await readFileContentBinary(file);
+      const binary = (await readFileContentBinary(file)) as string;
       setFileContentBinary(binary);
     }
   };
 
   // ファイルの中身を読み取る関数
-  const readFileContentText = (file) => {
+  const readFileContentText = (file: Blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        resolve(event.target.result);
+        resolve(event.target?.result);
       };
       reader.onerror = (error) => {
         reject(error);
@@ -42,12 +42,12 @@ export default function Home() {
     });
   };
 
-  const readFileContentBinary = (file) => {
+  const readFileContentBinary = (file: Blob) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (event) => {
-        const buf: ArrayBuffer = event.target.result;
-        const array = [...new Uint8Array(buf)].map((x) =>
+        const buf = event.target?.result as ArrayBuffer;
+        const array = Array.from(new Uint8Array(buf)).map((x) =>
           x.toString(16).padStart(2, "0"),
         );
         console.log(array);
@@ -96,7 +96,7 @@ export default function Home() {
       </div>
       {/* <MyDropzone /> */}
       <div>
-        {post.map((val) => {
+        {post.map((val: any) => {
           return <div key={val.id}>{val.id}</div>;
         })}
       </div>
