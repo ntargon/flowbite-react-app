@@ -1,7 +1,7 @@
 "use client";
 
 import { Sidebar as FlowbiteSidebar } from "flowbite-react";
-import { HiInbox, HiHome } from "react-icons/hi";
+import { HiInbox, HiHome, HiChartBar } from "react-icons/hi";
 import Link from "next/link";
 
 export function Sidebar() {
@@ -14,6 +14,9 @@ export function Sidebar() {
           </FlowbiteSidebar.Item>
           <FlowbiteSidebar.Item as={Link} href="/inbox" icon={HiInbox}>
             Inbox
+          </FlowbiteSidebar.Item>
+          <FlowbiteSidebar.Item as={Link} href="/graph" icon={HiChartBar}>
+            Graph
           </FlowbiteSidebar.Item>
         </FlowbiteSidebar.ItemGroup>
       </FlowbiteSidebar.Items>
