@@ -28,7 +28,7 @@ def frontend(build_dir="./build"):
 
     react = FastAPI(openapi_url="")
 
-    react.mount('/static', StaticFiles(directory=build_dir, html=True))
+    react.mount('/_next/static', StaticFiles(directory=build_dir / '_next/static', html=True))
 
     @react.get('/{path:path}')
     async def handle_catch_all(request: Request, path):
