@@ -1,11 +1,8 @@
 "use client";
-import {
-  useSerial,
-  SerialContextValue,
-} from "@/app/_components/SerialProvider";
+import { useSerial } from "@/app/_components/SerialProvider";
 
 import { Button } from "flowbite-react";
-import { createContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Hoge() {
   const hoge = useSerial();

@@ -115,6 +115,7 @@ const SerialProvider = ({
       portRef.current = port;
       setPortState("open");
       setHasManuallyDisconnected(false);
+      console.log("opened");
     } catch (error) {
       setPortState("closed");
       console.error("Could not open port");
@@ -164,6 +165,7 @@ const SerialProvider = ({
   };
 
   const manualDisconnectFromPort = async () => {
+    console.log("manualdisconnect");
     if (canUseSerial && portState === "open") {
       const port = portRef.current;
       if (port) {
@@ -240,8 +242,14 @@ const SerialProvider = ({
       !hasTriedAutoconnect &&
       portState === "closed"
     ) {
-      autoConnectToPort();
+      (async () => {
+        await autoConnectToPort();
+      })();
     }
+
+    return () => {
+      // manualDisconnectFromPort();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canUseSerial, hasManuallyDisconnected, hasTriedAutoconnect, portState]);
   // }, []);
