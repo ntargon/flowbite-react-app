@@ -5,10 +5,11 @@ import {
 } from "@/app/_components/SerialProvider";
 
 import { Button } from "flowbite-react";
-import { createContext } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export default function Hoge() {
   const hoge = useSerial();
+  let [str, setStr] = useState("");
 
   const onClickConnectHandler = () => {
     console.log("connect");
@@ -23,12 +24,27 @@ export default function Hoge() {
     hoge.disconnect();
     console.log(hoge.canUseSerial);
   };
+
+  useEffect(() => {
+    let unsubscribe = hoge.subscribe((e: any) => {
+      console.log("read");
+      console.log(e);
+      setStr((str) => str + e.value);
+    });
+
+    return () => {
+      unsubscribe();
+      hoge.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <h1 className="text-2xl dark:text-white">Inbox</h1>
       <Button onClick={onClickConnectHandler}>connect</Button>
       <Button onClick={onClickDisconnectHandler}>disconnect</Button>
       portstate: {hoge.portState}
+      str: {str}
     </>
   );
 }

@@ -147,6 +147,7 @@ const SerialProvider = ({
   };
 
   const autoConnectToPort = async () => {
+    console.log("autoconnecting");
     if (canUseSerial && portState === "closed") {
       setPortState("opening");
       const availablePorts = await navigator.serial.getPorts();
@@ -226,6 +227,13 @@ const SerialProvider = ({
 
   // Tries to auto-connect to a port, if possible
   useEffect(() => {
+    console.log("useeffect 0");
+    console.log(
+      canUseSerial,
+      hasManuallyDisconnected,
+      hasTriedAutoconnect,
+      portState,
+    );
     if (
       canUseSerial &&
       !hasManuallyDisconnected &&
@@ -236,6 +244,7 @@ const SerialProvider = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canUseSerial, hasManuallyDisconnected, hasTriedAutoconnect, portState]);
+  // }, []);
 
   return (
     <SerialContext.Provider
